@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { db, getProfile } from '../db/db.js';
+import { db } from '../db/db.js';
 import { money, fmtDate } from '../lib/format.js';
 
 export default function Billing() {
@@ -11,8 +11,7 @@ export default function Billing() {
     const bills = await db.billsOfSale.orderBy('createdAt').reverse().toArray();
     const accounts = Object.fromEntries((await db.accounts.toArray()).map((a) => [a.id, a]));
     const orders = Object.fromEntries((await db.workOrders.toArray()).map((o) => [o.id, o]));
-    const profile = await getProfile();
-    return { bills, accounts, orders, profile };
+    return { bills, accounts, orders };
   });
 
   const stats = useMemo(() => {
@@ -33,8 +32,7 @@ export default function Billing() {
   }, [data]);
 
   if (!data) return null;
-  const { bills, accounts, orders, profile } = data;
-  const prefix = profile?.billPrefix || 'BOS-';
+  const { bills, accounts, orders } = data;
   const visible = showPaid ? bills : bills.filter((b) => b.paymentStatus !== 'paid');
 
   return (
@@ -101,8 +99,8 @@ export default function Billing() {
                     </span>
                   </div>
                   <p className="list-item__sub">
-                    {b.billNumber ? `${prefix}${String(b.billNumber).padStart(4, '0')} · ` : ''}
-                    {money(b.total || 0)} · {fmtDate(b.pdfGeneratedAt || b.createdAt)}
+                    {b.billNumber ? `#${b.billNumber} · ` : ''}
+                    {money(b.total || 0)} · {fmtDate(b.billDate || b.pdfGeneratedAt || b.createdAt)}
                   </p>
                 </Link>
               );

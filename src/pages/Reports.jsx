@@ -76,7 +76,7 @@ export default function Reports() {
         const name = data.accounts[acctId]?.name || 'Unknown';
         return [
           fmtDate(billTs(b)),
-          b.billNumber ? String(b.billNumber).padStart(4, '0') : '',
+          b.billNumber || '',
           name,
           (b.subtotal || 0).toFixed(2),
           (b.taxAmount || 0).toFixed(2),

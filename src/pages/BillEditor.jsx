@@ -140,7 +140,7 @@ export default function BillEditor() {
         account,
         contact,
         workOrder: order,
-        bill: { ...billRecord, billNumber: saved?.billNumber, billPrefix: profile?.billPrefix || 'BOS-' },
+        bill: { ...billRecord, billNumber: saved?.billNumber },
         photoBlobs: photos.map((p) => p.blob),
       });
       await savePdfToBill(savedId, pdfBlob);
@@ -157,9 +157,7 @@ export default function BillEditor() {
   }
 
   const pdfName = `bill-of-sale-${(account?.name || 'customer').replace(/[^a-z0-9]+/gi, '-').toLowerCase()}.pdf`;
-  const billNo = ctx.bill?.billNumber
-    ? (profile?.billPrefix || 'BOS-') + String(ctx.bill.billNumber).padStart(4, '0')
-    : null;
+  const billNo = ctx.bill?.billNumber ? String(ctx.bill.billNumber) : null;
 
   // ---------- DONE ----------
   if (step === 'done') {

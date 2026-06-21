@@ -114,16 +114,30 @@ export async function getBillForWorkOrder(workOrderId) {
   return (await db.billsOfSale.where('workOrderId').equals(workOrderId).first()) || null;
 }
 
+// Bill number format: YYYYMMDD + XX, where XX is the 2-digit count for that day (01, 02…).
+function dayPrefix(ts) {
+  const d = new Date(ts);
+  return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
+}
+
 export async function saveBill(workOrderId, data) {
-  return db.transaction('rw', db.billsOfSale, db.businessProfile, async () => {
+  return db.transaction('rw', db.billsOfSale, async () => {
     const existing = await db.billsOfSale.where('workOrderId').equals(workOrderId).first();
 
-    // Assign a sequential bill number once, the first time a bill is saved.
+    // Assign a date-based bill number once, the first time a bill is saved.
     let billNumber = existing?.billNumber;
     if (!billNumber) {
-      const profile = (await db.businessProfile.get(PROFILE_ID)) || { id: PROFILE_ID };
-      billNumber = profile.nextBillNumber || 1;
-      await db.businessProfile.put({ ...profile, nextBillNumber: billNumber + 1 });
+      const prefix = dayPrefix(data.billDate || Date.now());
+      const all = await db.billsOfSale.toArray();
+      const seq = all.reduce((max, b) => {
+        const bn = String(b.billNumber || '');
+        if (bn.startsWith(prefix) && bn.length === 10) {
+          const n = parseInt(bn.slice(8), 10);
+          if (Number.isFinite(n) && n > max) return n;
+        }
+        return max;
+      }, 0);
+      billNumber = `${prefix}${String(seq + 1).padStart(2, '0')}`;
     }
 
     if (existing) {

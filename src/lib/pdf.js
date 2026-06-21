@@ -91,8 +91,7 @@ export async function generateBillPdf({ profile, account, contact, workOrder, bi
   doc.text('BILL OF SALE', M, y + 8);
   doc.setFont('helvetica', 'normal').setFontSize(10).setTextColor(90);
   if (bill?.billNumber) {
-    const num = `${bill.billPrefix || 'BOS-'}${String(bill.billNumber).padStart(4, '0')}`;
-    doc.text(`Bill #: ${num}`, right, y - 16, { align: 'right' });
+    doc.text(`Bill #: ${bill.billNumber}`, right, y - 16, { align: 'right' });
   }
   doc.text(`Date: ${fmtDate(bill?.billDate || bill?.pdfGeneratedAt || Date.now())}`, right, y - 4, { align: 'right' });
   doc.text(`Service: ${fmtDate(workOrder?.serviceDate)}`, right, y + 9, { align: 'right' });
