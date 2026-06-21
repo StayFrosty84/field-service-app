@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { lastBackupAt } from '../lib/backup.js';
+import Icon from './Icon.jsx';
 
 const DISMISS_KEY = 'fs-backup-reminder-dismissed';
 const STALE_DAYS = 14;
@@ -17,7 +18,7 @@ export default function BackupReminder({ hasData }) {
 
   return (
     <div className="banner">
-      <span>⚠️</span>
+      <Icon name="alert-triangle" size={18} />
       <span>
         {last ? 'It’s been a while since your last backup. ' : 'You haven’t backed up yet. '}
         <Link to="/settings">Back up now</Link>
@@ -30,7 +31,7 @@ export default function BackupReminder({ hasData }) {
         }}
         aria-label="Dismiss"
       >
-        ✕
+        <Icon name="x" size={18} />
       </button>
     </div>
   );

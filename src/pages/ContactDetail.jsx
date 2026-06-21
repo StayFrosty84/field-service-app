@@ -3,6 +3,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db, deleteContact } from '../db/db.js';
 import { fmtDate } from '../lib/format.js';
 import { useToast } from '../components/Toast.jsx';
+import Icon from '../components/Icon.jsx';
 
 export default function ContactDetail() {
   const { id } = useParams();
@@ -35,11 +36,11 @@ export default function ContactDetail() {
         {contact.role && <div className="muted">{contact.role}</div>}
         {account && (
           <div style={{ marginTop: 4 }}>
-            🏢 <Link to={`/accounts/${account.id}`}>{account.name}</Link>
+            <Icon name="building" size={15} /> <Link to={`/accounts/${account.id}`}>{account.name}</Link>
           </div>
         )}
-        {contact.phone && <div>📞 <a href={`tel:${contact.phone}`}>{contact.phone}</a></div>}
-        {contact.email && <div>✉️ <a href={`mailto:${contact.email}`}>{contact.email}</a></div>}
+        {contact.phone && <div><Icon name="phone" size={15} /> <a href={`tel:${contact.phone}`}>{contact.phone}</a></div>}
+        {contact.email && <div><Icon name="mail" size={15} /> <a href={`mailto:${contact.email}`}>{contact.email}</a></div>}
         {contact.notes && <div className="muted" style={{ marginTop: 6 }}>{contact.notes}</div>}
       </div>
 

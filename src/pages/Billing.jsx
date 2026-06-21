@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db/db.js';
 import { money, fmtDate } from '../lib/format.js';
+import Icon from '../components/Icon.jsx';
 
 export default function Billing() {
   const [showPaid, setShowPaid] = useState(false);
@@ -41,7 +42,7 @@ export default function Billing() {
 
       {bills.length === 0 ? (
         <div className="empty">
-          <span className="ico">💵</span>
+          <span className="ico"><Icon name="banknote" size={40} /></span>
           No bills yet.
           <br />
           Generate a Bill of Sale from a completed work order.
@@ -82,7 +83,7 @@ export default function Billing() {
 
           {visible.length === 0 && (
             <p className="muted" style={{ textAlign: 'center', padding: '24px 0' }}>
-              Nothing outstanding — you're all paid up. 🎉
+              Nothing outstanding — you're all paid up. <Icon name="sparkles" />
             </p>
           )}
 

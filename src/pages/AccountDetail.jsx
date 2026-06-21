@@ -3,6 +3,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db, deleteAccount } from '../db/db.js';
 import { fmtDate } from '../lib/format.js';
 import { useToast } from '../components/Toast.jsx';
+import Icon from '../components/Icon.jsx';
 
 export default function AccountDetail() {
   const { id } = useParams();
@@ -32,8 +33,8 @@ export default function AccountDetail() {
     <>
       <h1 style={{ marginTop: 4 }}>{account.name}</h1>
       <div className="card">
-        {account.phone && <div>📞 <a href={`tel:${account.phone}`}>{account.phone}</a></div>}
-        {account.email && <div>✉️ <a href={`mailto:${account.email}`}>{account.email}</a></div>}
+        {account.phone && <div><Icon name="phone" size={15} /> <a href={`tel:${account.phone}`}>{account.phone}</a></div>}
+        {account.email && <div><Icon name="mail" size={15} /> <a href={`mailto:${account.email}`}>{account.email}</a></div>}
         {account.address && <div className="muted" style={{ marginTop: 6 }}>{account.address}</div>}
         {account.notes && <div className="muted" style={{ marginTop: 6 }}>{account.notes}</div>}
       </div>
@@ -46,7 +47,7 @@ export default function AccountDetail() {
           className="btn"
           onClick={() => navigate('/work-orders/new', { state: { accountId: id } })}
         >
-          ＋ Work Order
+          <Icon name="plus" /> Work Order
         </button>
       </div>
 
@@ -62,7 +63,7 @@ export default function AccountDetail() {
           className="btn btn--ghost"
           onClick={() => navigate('/contacts/new', { state: { accountId: id } })}
         >
-          ＋ Add contact
+          <Icon name="plus" /> Add contact
         </button>
       </div>
 

@@ -5,6 +5,7 @@ import { db } from '../db/db.js';
 import { money, fmtDate } from '../lib/format.js';
 import { useFeatures } from '../lib/useFeatures.js';
 import BackupReminder from '../components/BackupReminder.jsx';
+import Icon from '../components/Icon.jsx';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -73,11 +74,11 @@ export default function Home() {
 
       <div className="btn-row" style={{ marginTop: 4 }}>
         <button className="btn" onClick={() => navigate('/work-orders/new')}>
-          ＋ New work order
+          <Icon name="plus" /> New work order
         </button>
         {features.billing && stats.outstanding > 0 && (
           <button className="btn btn--ghost" onClick={() => navigate('/billing')}>
-            💵 Unpaid
+            <Icon name="banknote" /> Unpaid
           </button>
         )}
       </div>
@@ -106,7 +107,7 @@ export default function Home() {
       <div className="section-title">Recent work orders</div>
       {orders.length === 0 ? (
         <div className="empty">
-          <span className="ico">🧰</span>
+          <span className="ico"><Icon name="wrench" size={40} /></span>
           No work orders yet.
           <br />
           Tap ＋ New work order to log your first job.
@@ -128,7 +129,7 @@ export default function Home() {
           </div>
           {orders.length > 5 && (
             <Link className="btn btn--ghost" to="/work" style={{ marginTop: 10 }}>
-              View all work orders →
+              View all work orders <Icon name="arrow-right" />
             </Link>
           )}
         </>

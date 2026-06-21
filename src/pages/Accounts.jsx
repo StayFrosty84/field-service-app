@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db/db.js';
 import SearchBar from '../components/SearchBar.jsx';
+import Icon from '../components/Icon.jsx';
 
 export default function Accounts() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ export default function Accounts() {
 
       {accounts.length === 0 && (
         <div className="empty">
-          <span className="ico">🏢</span>
+          <span className="ico"><Icon name="building" size={40} /></span>
           No accounts yet.
         </div>
       )}
@@ -51,7 +52,7 @@ export default function Accounts() {
       </div>
 
       <button className="fab" onClick={() => navigate('/accounts/new')} aria-label="New account">
-        ＋
+        <Icon name="plus" size={28} />
       </button>
     </>
   );

@@ -5,6 +5,7 @@ import { db, createAccount, createContact, createWorkOrder, addPhoto } from '../
 import { toDateInput, fromDateInput } from '../lib/format.js';
 import { useToast } from '../components/Toast.jsx';
 import AddressAutocomplete from '../components/AddressAutocomplete.jsx';
+import Icon from '../components/Icon.jsx';
 
 export default function WorkOrderNew() {
   const navigate = useNavigate();
@@ -174,7 +175,7 @@ export default function WorkOrderNew() {
         }}
       />
       <button type="button" className="btn btn--ghost btn--sm" onClick={useGps} style={{ marginTop: 8 }}>
-        📍 Use current location
+        <Icon name="map-pin" size={16} /> Use current location
       </button>
 
       <label>Service date</label>
@@ -189,7 +190,7 @@ export default function WorkOrderNew() {
 
       <label>Photos</label>
       <label className="btn btn--ghost" style={{ margin: 0 }}>
-        📷 Add photos
+        <Icon name="camera" /> Add photos
         <input type="file" accept="image/*" capture="environment" multiple onChange={onPhotos} hidden />
       </label>
       {photos.length > 0 && (
@@ -203,7 +204,7 @@ export default function WorkOrderNew() {
                 style={removeBtn}
                 aria-label="Remove photo"
               >
-                ✕
+                <Icon name="x" size={14} />
               </button>
             </div>
           ))}

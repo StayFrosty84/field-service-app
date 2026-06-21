@@ -9,6 +9,7 @@ import { sampleBillData } from '../lib/sampleBill.js';
 import { getTheme, setTheme } from '../lib/theme.js';
 import { useToast } from '../components/Toast.jsx';
 import CatalogManager from '../components/CatalogManager.jsx';
+import Icon from '../components/Icon.jsx';
 
 const EMPTY = {
   businessName: '',
@@ -177,7 +178,7 @@ export default function Settings() {
 
       <div className="section-title">Reports</div>
       <Link className="btn btn--ghost" to="/reports">
-        📊 View revenue reports
+        <Icon name="bar-chart" /> View revenue reports
       </Link>
 
       <div className="section-title" style={{ marginTop: 22 }}>Business profile (appears on every Bill of Sale)</div>
@@ -248,7 +249,7 @@ export default function Settings() {
 
       <div className="btn-row">
         <button className="btn btn--ghost" onClick={previewSample}>
-          👁 Preview sample
+          <Icon name="eye" /> Preview sample
         </button>
         <button className="btn" onClick={saveProfileForm}>
           Save profile
@@ -269,10 +270,10 @@ export default function Settings() {
           to one file. Use your share sheet to save it to Google Drive or iCloud / Files.
         </p>
         <button className="btn" onClick={backup}>
-          ⬆️ Backup now
+          <Icon name="upload" /> Backup now
         </button>
         <label className="btn btn--ghost" style={{ marginTop: 10 }}>
-          ⬇️ Restore from file
+          <Icon name="download" /> Restore from file
           <input type="file" accept="application/json,.json" onChange={restore} hidden />
         </label>
       </div>

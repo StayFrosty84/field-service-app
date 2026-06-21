@@ -4,6 +4,7 @@ import { db } from '../db/db.js';
 import { money, fmtDate } from '../lib/format.js';
 import { shareFile } from '../lib/share.js';
 import { useToast } from '../components/Toast.jsx';
+import Icon from '../components/Icon.jsx';
 
 const billTs = (b) => b.billDate || b.pdfGeneratedAt || b.createdAt || 0;
 
@@ -56,7 +57,7 @@ export default function Reports() {
       <>
         <h1 style={{ marginTop: 4 }}>Reports</h1>
         <div className="empty">
-          <span className="ico">📊</span>
+          <span className="ico"><Icon name="bar-chart" size={40} /></span>
           No bills yet — reports appear once you generate some.
         </div>
       </>
@@ -147,7 +148,7 @@ export default function Reports() {
       </div>
 
       <div className="btn-row">
-        <button className="btn" onClick={exportCsv}>⬇️ Export CSV</button>
+        <button className="btn" onClick={exportCsv}><Icon name="download" /> Export CSV</button>
       </div>
     </>
   );

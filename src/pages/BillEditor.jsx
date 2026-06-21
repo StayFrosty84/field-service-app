@@ -15,6 +15,7 @@ import { useToast } from '../components/Toast.jsx';
 import { useFeatures } from '../lib/useFeatures.js';
 import SignaturePadField from '../components/SignaturePadField.jsx';
 import CatalogPicker from '../components/CatalogPicker.jsx';
+import Icon from '../components/Icon.jsx';
 
 const blankItem = () => ({ id: crypto.randomUUID(), description: '', qty: 1, unitPrice: '' });
 
@@ -169,7 +170,7 @@ export default function BillEditor() {
     return (
       <>
         <div className="empty" style={{ paddingBottom: 12 }}>
-          <span className="ico">✅</span>
+          <span className="ico"><Icon name="check-circle" size={40} /></span>
           Bill saved to this work order.
         </div>
 
@@ -185,7 +186,7 @@ export default function BillEditor() {
                   onClick={async () => ((await copyText(r.value)) ? toast(`Copied ${r.value}`) : toast(r.value))}
                 >
                   <span className="muted">{r.label}</span>
-                  <span>{r.value} 📋</span>
+                  <span>{r.value} <Icon name="clipboard" size={14} /></span>
                 </button>
               ))}
             </div>
@@ -194,10 +195,10 @@ export default function BillEditor() {
 
         <div className="btn-row">
           <button className="btn btn--ghost" onClick={() => openBlob(result.pdfBlob, pdfName)}>
-            👁 View PDF
+            <Icon name="eye" /> View PDF
           </button>
           <button className="btn" onClick={() => shareFile(result.pdfBlob, pdfName, { title: 'Bill of Sale' })}>
-            📤 Share PDF
+            <Icon name="share" /> Share PDF
           </button>
         </div>
         <div className="btn-row">
@@ -254,10 +255,10 @@ export default function BillEditor() {
 
         <div className="btn-row">
           <button className="btn btn--ghost" onClick={() => setStep('edit')}>
-            ← Back
+            <Icon name="arrow-left" /> Back
           </button>
           <button className="btn" onClick={generate} disabled={busy}>
-            {busy ? 'Saving…' : '✓ Generate & Save PDF'}
+            {busy ? 'Saving…' : <><Icon name="check" /> Generate &amp; Save PDF</>}
           </button>
         </div>
       </>
@@ -305,8 +306,8 @@ export default function BillEditor() {
         );
       })}
       <div className="btn-row" style={{ marginTop: 12 }}>
-        <button className="btn btn--ghost" onClick={addItem}>＋ Add line item</button>
-        <button className="btn btn--ghost" onClick={() => setCatalogOpen(true)}>📋 Add from catalog</button>
+        <button className="btn btn--ghost" onClick={addItem}><Icon name="plus" /> Add line item</button>
+        <button className="btn btn--ghost" onClick={() => setCatalogOpen(true)}><Icon name="clipboard" /> Add from catalog</button>
       </div>
 
       <div className="card" style={{ marginTop: 16 }}>
@@ -367,7 +368,7 @@ export default function BillEditor() {
 
       <div className="btn-row">
         <button className="btn" onClick={goReview}>
-          Review &amp; sign →
+          Review &amp; sign <Icon name="arrow-right" />
         </button>
       </div>
 

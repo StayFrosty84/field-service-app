@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db/db.js';
 import SearchBar from '../components/SearchBar.jsx';
+import Icon from '../components/Icon.jsx';
 
 export default function Contacts() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function Contacts() {
 
       {contacts.length === 0 && (
         <div className="empty">
-          <span className="ico">👤</span>
+          <span className="ico"><Icon name="user" size={40} /></span>
           No contacts yet.
         </div>
       )}
@@ -60,7 +61,7 @@ export default function Contacts() {
       </div>
 
       <button className="fab" onClick={() => navigate('/contacts/new')} aria-label="New contact">
-        ＋
+        <Icon name="plus" size={28} />
       </button>
     </>
   );

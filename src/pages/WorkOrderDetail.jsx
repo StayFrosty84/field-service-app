@@ -15,6 +15,7 @@ import { shareFile, openBlob } from '../lib/share.js';
 import { useToast } from '../components/Toast.jsx';
 import { useFeatures } from '../lib/useFeatures.js';
 import AddressAutocomplete from '../components/AddressAutocomplete.jsx';
+import Icon from '../components/Icon.jsx';
 
 export default function WorkOrderDetail() {
   const { id } = useParams();
@@ -110,11 +111,11 @@ export default function WorkOrderDetail() {
 
       <div className="card" style={{ marginTop: 12 }}>
         <div>
-          🏢 <Link to={`/accounts/${account?.id}`}>{account?.name || 'Unknown'}</Link>
+          <Icon name="building" size={15} /> <Link to={`/accounts/${account?.id}`}>{account?.name || 'Unknown'}</Link>
         </div>
         {contact && (
           <div>
-            👤 <Link to={`/contacts/${contact.id}`}>{contact.name}</Link>
+            <Icon name="user" size={15} /> <Link to={`/contacts/${contact.id}`}>{contact.name}</Link>
             {contact.phone ? (
               <>
                 {' · '}
@@ -152,7 +153,7 @@ export default function WorkOrderDetail() {
 
       <div className="section-title">Photos ({photos.length})</div>
       <label className="btn btn--ghost" style={{ margin: '0 0 10px' }}>
-        📷 Add photos
+        <Icon name="camera" /> Add photos
         <input type="file" accept="image/*" capture="environment" multiple onChange={onPhotos} hidden />
       </label>
       <div className="row" style={{ flexWrap: 'wrap' }}>
@@ -175,13 +176,13 @@ export default function WorkOrderDetail() {
           {bill.pdfBlob && (
             <div className="btn-row">
               <button className="btn btn--ghost" onClick={() => openBlob(bill.pdfBlob, 'bill-of-sale.pdf')}>
-                👁 View PDF
+                <Icon name="eye" /> View PDF
               </button>
               <button
                 className="btn"
                 onClick={() => shareFile(bill.pdfBlob, 'bill-of-sale.pdf', { title: 'Bill of Sale' })}
               >
-                📤 Share PDF
+                <Icon name="share" /> Share PDF
               </button>
             </div>
           )}
@@ -190,21 +191,25 @@ export default function WorkOrderDetail() {
             style={{ marginTop: 10 }}
             onClick={() => navigate(`/work-orders/${id}/bill`)}
           >
-            ✏️ Edit bill
+            <Icon name="pencil" /> Edit bill
           </button>
         </div>
       ) : (
         <button className="btn" onClick={() => navigate(`/work-orders/${id}/bill`)}>
-          📄 Generate Bill of Sale
+          <Icon name="file-text" /> Generate Bill of Sale
         </button>
       )}
 
       <div className="btn-row">
         <button className="btn btn--ghost" onClick={toggleComplete}>
-          {order.status === 'open' ? '✓ Mark completed' : '↩ Reopen'}
+          {order.status === 'open' ? (
+            <><Icon name="check" /> Mark completed</>
+          ) : (
+            <><Icon name="rotate-ccw" /> Reopen</>
+          )}
         </button>
         <button className="btn btn--ghost" onClick={duplicate}>
-          ⧉ Duplicate
+          <Icon name="copy" /> Duplicate
         </button>
       </div>
       <div className="btn-row">
@@ -245,7 +250,7 @@ function PhotoThumb({ photo, onRemove }) {
           fontSize: 12,
         }}
       >
-        ✕
+        <Icon name="x" size={14} />
       </button>
     </div>
   );

@@ -4,6 +4,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db/db.js';
 import { fmtDate } from '../lib/format.js';
 import SearchBar from '../components/SearchBar.jsx';
+import Icon from '../components/Icon.jsx';
 
 export default function Work() {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ export default function Work() {
 
       {orders.length === 0 && (
         <div className="empty">
-          <span className="ico">🧰</span>
+          <span className="ico"><Icon name="wrench" size={40} /></span>
           No work orders yet.
           <br />
           Tap ＋ to log your first job.
@@ -75,7 +76,7 @@ export default function Work() {
       </div>
 
       <button className="fab" onClick={() => navigate('/work-orders/new')} aria-label="New work order">
-        ＋
+        <Icon name="plus" size={28} />
       </button>
     </>
   );

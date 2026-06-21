@@ -1,13 +1,14 @@
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useFeatures } from '../lib/useFeatures.js';
+import Icon from './Icon.jsx';
 
 const ALL_TABS = [
-  { to: '/', label: 'Home', ico: '🏠', end: true },
-  { to: '/work', label: 'Work', ico: '🧰' },
-  { to: '/accounts', label: 'Accounts', ico: '🏢' },
-  { to: '/contacts', label: 'Contacts', ico: '👤' },
-  { to: '/billing', label: 'Billing', ico: '💵' },
-  { to: '/settings', label: 'Settings', ico: '⚙️' },
+  { to: '/', label: 'Home', ico: 'home', end: true },
+  { to: '/work', label: 'Work', ico: 'wrench' },
+  { to: '/accounts', label: 'Accounts', ico: 'building' },
+  { to: '/contacts', label: 'Contacts', ico: 'user' },
+  { to: '/billing', label: 'Billing', ico: 'banknote' },
+  { to: '/settings', label: 'Settings', ico: 'settings' },
 ];
 
 // Top-level routes show the tab bar; deeper routes show a back button instead.
@@ -41,7 +42,7 @@ export default function Layout() {
       <nav className="nav">
         {tabs.map((t) => (
           <NavLink key={t.to} to={t.to} end={t.end} className={({ isActive }) => (isActive ? 'active' : '')}>
-            <span className="ico">{t.ico}</span>
+            <Icon name={t.ico} size={24} />
             {t.label}
           </NavLink>
         ))}

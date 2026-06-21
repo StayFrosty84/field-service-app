@@ -3,6 +3,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db, createCatalogItem, deleteCatalogItem } from '../db/db.js';
 import { money } from '../lib/format.js';
 import { useToast } from './Toast.jsx';
+import Icon from './Icon.jsx';
 
 // Manage saved parts/labor presets used by the bill editor's "Add from catalog".
 export default function CatalogManager() {
@@ -51,7 +52,7 @@ export default function CatalogManager() {
         </div>
       </div>
       <button className="btn btn--ghost btn--sm" style={{ marginTop: 10 }} onClick={add}>
-        ＋ Add item
+        <Icon name="plus" size={16} /> Add item
       </button>
 
       {items.length > 0 && (
@@ -66,7 +67,7 @@ export default function CatalogManager() {
                 onClick={() => remove(it.id, it.description)}
                 aria-label="Remove"
               >
-                ✕
+                <Icon name="x" size={16} />
               </button>
             </div>
           ))}
